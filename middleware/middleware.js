@@ -1,5 +1,25 @@
-export const middleware=(req,res,next)=>{
-    if(true){
-        next()
+import { apiErrorResponse, decryptText } from "../helper/helper.js";
+
+export const middleware = async (req, res, next) => {
+  try {
+    console.log(req.get("authorization"), "reqreqfffffffffffffffffff");
+    let authToken = req.get("authorization");
+
+    if (!authToken) {
+      return apiErrorResponse({
+        res,
+        error: { message: "unauthorized" },
+        statusCode: 401,
+      });
     }
-}
+
+    let token = authToken?.split("Bearer")[1];
+    let decryptRes = await decryptText(token);
+    if (decryptRes) {
+      req.userDetails = decryptRes;
+      next();
+    }
+  } catch (error) {
+    apiErrorResponse({ res, error });
+  }
+};

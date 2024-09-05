@@ -1,10 +1,14 @@
 import express from "express"
 import userRouter from "./routes/userRoutes.js";
 import { connectDB } from "./dbConfig/dnConfig.js";
+import { envValues } from "./helper/envHelper.js";
+
 // import routes from "./routes";
 const app = express();
 app.use(express.json());
 app.use("/user",userRouter)
+
+console.log(envValues.JWT_KEY,"JWT_KEYJWT_KEYJWT_KEY")
 
 // app.get('/api/greet', (req, res) => {
 //     let query=  req.query
@@ -21,7 +25,7 @@ app.use("/user",userRouter)
 //   });
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     connectDB()
