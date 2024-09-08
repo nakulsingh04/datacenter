@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { envValues } from "./envHelper.js";
 export const apiResponse = (objectData) => {
-  const { res, data, statusCode = 200,message="Success",...rest } = objectData;
+  const { res, data, statusCode = 200, message="Success",...rest } = objectData;
   return res.json({
     statusCode: statusCode,
     data: data,
@@ -30,7 +30,6 @@ export const apiErrorResponse = (objectData) => {
       }}
     
   }
-
 
   export const decryptText = async (token) => {
     try {

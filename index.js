@@ -1,32 +1,21 @@
-import express from "express"
-import userRouter from "./routes/userRoutes.js";
+import express from "express";
+import routes from "./routes/index.js";
 import { connectDB } from "./dbConfig/dnConfig.js";
-import { envValues } from "./helper/envHelper.js";
+import cors from "cors";
 
-// import routes from "./routes";
+const corsOptions = {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
 const app = express();
+app.use(cors(corsOptions));
 app.use(express.json());
-app.use("/user",userRouter)
-
-console.log(envValues.JWT_KEY,"JWT_KEYJWT_KEYJWT_KEY")
-
-// app.get('/api/greet', (req, res) => {
-//     let query=  req.query
-//     let body=  req.body
-//     console.log(query,body,"hhhhh")
-//     res.json({ message: 'Hello, World!' });
-//   });
-
-//   app.post('/api/greet', (req, res) => {
-//     let query=  req.query
-//     let body=  req.body
-//     console.log(query,body,"hhhhh")
-//     res.json({ message: 'Hello, World!' });
-//   });
-
+app.use("/api", routes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-    connectDB()
+  console.log(`Server running on port ${PORT}`);
+  connectDB();
 });

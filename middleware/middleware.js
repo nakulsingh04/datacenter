@@ -2,7 +2,6 @@ import { apiErrorResponse, decryptText } from "../helper/helper.js";
 
 export const middleware = async (req, res, next) => {
   try {
-    console.log(req.get("authorization"), "reqreqfffffffffffffffffff");
     let authToken = req.get("authorization");
 
     if (!authToken) {
